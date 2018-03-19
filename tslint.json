@@ -1,0 +1,9 @@
+{
+  "extends": "@blueprintjs/tslint-config",
+  "rules": {
+    "file-header": {
+      "options": ["Copyright \\d{4} lotteryjs.com Technologies, Inc\\. All rights reserved."]
+    },
+    "object-literal-sort-keys": false
+  }
+}

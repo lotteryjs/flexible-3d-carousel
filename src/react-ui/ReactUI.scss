@@ -1,0 +1,39 @@
+.canvas{
+  position: relative;
+  width: 60%;
+  margin: 100px auto;
+  background: rgb(186, 226, 189);
+}
+
+.canvasH {
+  padding-top: 50%;
+}
+
+.item{
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 25%;
+  transform: translateZ(0);
+}
+
+.itemH {
+  padding-top: 130%;
+}
+
+.itemCon {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f3f7e3;
+  border-radius: 5px;
+  box-shadow: 0 8px 6px -6px black;
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
