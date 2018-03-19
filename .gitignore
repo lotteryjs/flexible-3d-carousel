@@ -6,3 +6,4 @@
 /umd
 npm-debug.log*
 .DS_store
+.nyc_output

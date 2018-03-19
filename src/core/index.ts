@@ -5,7 +5,7 @@
  */
 
 import { Animation } from "./animation";
-import { ICore, IItemStyle, IOptions } from "./props";
+import { IAnimation, ICore, IItemStyle, IOptions } from "./props";
 
 export class Core implements ICore {
     /**
@@ -20,6 +20,7 @@ export class Core implements ICore {
         farScale: 0.5,
         speed: 0.03,
         autoPlay: true,
+        autoPlayDelay: 2,
         render: () => void 0,
     };
 
@@ -71,9 +72,9 @@ export class Core implements ICore {
     /**
      * 动画
      */
-    private animation: any;
+    public animation: IAnimation;
 
-    constructor(options?: any) {
+    constructor(options: IOptions) {
         this.options = {
             ...Core.defaultOptions,
             ...options,

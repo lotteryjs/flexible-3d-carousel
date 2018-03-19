@@ -39,6 +39,12 @@ export interface IOptions {
     autoPlay?: boolean;
 
     /**
+     * 是否自动播放
+     * @default 2(两秒)
+     */
+    autoPlayDelay?: number;
+
+    /**
      * 帧率，当不支持requestAnimationFrame时，这个值有用
      * @default 60
      */
@@ -81,6 +87,20 @@ export interface IOptions {
      * 为UI组件提供的render方法
      */
     render(styles: IItemStyle[]): void;
+}
+
+export interface IAnimation {
+    /**
+     * 当前Core实例
+     */
+    core: ICore;
+
+    /**
+     * 当前roation值
+     */
+    rotation: number;
+
+    init(): void;
 }
 
 export interface ICore {

@@ -59,6 +59,8 @@ export class ReactUI extends React.PureComponent<any, any> {
     public componentDidMount() {
         this.core = new Core({
             count: this.state.awards.length,
+            width: 222,
+            height: 323,
             render: (itemsStyle: any) => {
                 this.setState({
                     itemsStyle,

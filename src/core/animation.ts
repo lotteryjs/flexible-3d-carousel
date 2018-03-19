@@ -7,33 +7,32 @@ import raf from "raf";
 import { ICore } from "./props";
 
 export class Animation {
-    private carousel: ICore;
-    private rotation: number;
-    private destRotation: number;
+    public core: ICore;
+    public rotation: number;
+    public destRotation: number;
 
-    constructor(carousel: ICore) {
-        this.carousel = carousel;
+    constructor(core: ICore) {
+        this.core = core;
+        this.rotation = this.core.rotation;
+        this.destRotation = this.rotation;
     }
 
     public init() {
-        this.rotation = this.carousel.rotation;
-        this.destRotation = this.rotation;
-        let startTime: number;
+        let startTime: number = new Date().getTime();
         let endTime: number;
         const drawFrame = () => {
             endTime = new Date().getTime();
-            if ((endTime - startTime) / 1000 >= 1 && this.carousel.options.autoPlay) {
-                this.destRotation += this.carousel.spacing;
+            if ((endTime - startTime) / 1000 >= this.core.options.autoPlayDelay && this.core.options.autoPlay) {
+                this.destRotation += this.core.spacing;
             }
             if (this.rotation <= this.destRotation) {
-                this.rotation += this.carousel.options.speed;
+                this.rotation += this.core.options.speed;
                 startTime = new Date().getTime();
             }
-            this.carousel.render(this.rotation);
-            if (this.rotation >= 2 * Math.PI + this.carousel.rotation) {
-                this.rotation = this.carousel.rotation;
+            this.core.render(this.rotation);
+            if (this.rotation >= 2 * Math.PI + this.core.rotation) {
+                this.rotation = this.core.rotation;
                 this.destRotation = this.rotation;
-                console.log(this.rotation, this.destRotation, this.carousel.rotation);
             }
             raf(drawFrame);
         };

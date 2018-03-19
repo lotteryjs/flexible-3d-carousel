@@ -4,24 +4,23 @@
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
 
- interface Window {
+interface IWindow {
     cancelRequestAnimationFrame: any;
     [key: string]: any;
- }
+}
 
- interface CssModule {
-    [className: string]: string
-  }
+interface ICssModule {
+    [className: string]: string;
+}
 
-  declare module "*.scss" {
-    const styles: CssModule
+declare module "*.scss" {
+    const styles: ICssModule;
     export = styles;
-  }
+}
 
-  declare module "*.css" {
-    const styles: CssModule
+declare module "*.css" {
+    const styles: ICssModule;
     export = styles;
-  }
+}
 
-
- declare module "raf"
+declare module "raf";

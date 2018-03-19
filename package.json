@@ -11,7 +11,7 @@
     "umd"
   ],
   "scripts": {
-    "lint": "tslint -t codeFrame 'src/**/*.*'",
+    "lint": "tslint -t codeFrame 'src/**/*.ts' 'src/**/*.tsx'",
     "build": "nwb build-web-module src/index.tsx",
     "clean": "nwb clean-module && nwb clean-demo",
     "start": "nwb serve-web-app demo/src/index.tsx",
@@ -41,8 +41,7 @@
         "statements": 95
       }
     },
-    "collectCoverage": false,
-    "mapCoverage": true
+    "collectCoverage": false
   },
   "dependencies": {
     "raf": "^3.4.0",
@@ -54,6 +53,7 @@
   },
   "devDependencies": {
     "@blueprintjs/tslint-config": "^1.1.0",
+    "@types/jest": "^22.2.0",
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
     "fork-ts-checker-webpack-plugin": "^0.4.1",
