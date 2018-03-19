@@ -56,7 +56,7 @@ describe("Core", () => {
             },
             rotation: Math.PI,
             spacing: Math.PI / 4,
-            render: (rotation?: number) => void 0,
+            render: () => void 0,
         };
         const animation = new Animation(core);
         animation.rotation = 2 * Math.PI + core.rotation;

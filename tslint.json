@@ -4,6 +4,7 @@
     "file-header": {
       "options": ["Copyright \\d{4} lotteryjs.com Technologies, Inc\\. All rights reserved."]
     },
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "ordered-imports": false
   }
 }
