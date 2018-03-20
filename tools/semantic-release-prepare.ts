@@ -53,3 +53,5 @@ if (pkg.repository.url.trim()) {
 }
 
 console.log()
+
+export {};

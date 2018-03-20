@@ -38,7 +38,7 @@ const sassCSS = {
 module.exports = {
   type: "web-app",
   npm: {
-    esModules: true,
+    esModules: false,
     umd: {
       global: "flexible3dCarousel",
       externals: {

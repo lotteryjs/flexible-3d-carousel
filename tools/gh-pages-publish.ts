@@ -30,3 +30,5 @@ exec(
   `git push --force --quiet "https://${ghToken}@${repository}" master:gh-pages`
 )
 echo("Docs deployed!!")
+
+export {}
