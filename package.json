@@ -3,10 +3,12 @@
   "version": "0.0.0-development",
   "description": "flexible-3d-carousel React component",
   "main": "umd/flexible-3d-carousel.min.js",
-  "files": ["umd"],
+  "files": [
+    "umd"
+  ],
   "scripts": {
     "lint:stylelint": "stylelint -s scss \"src/**/*.scss\"",
-    "lint:tslint": "tslint \"{src,test}/**/*.{ts,tsx}\" -t codeFrame",
+    "lint": "tslint \"{src,test}/**/*.{ts,tsx}\" -t codeFrame",
     "build": "nwb build-web-module src/core/index.ts",
     "build:demo": "nwb build-web-app demo/src/index.tsx",
     "clean": "nwb clean-module && nwb clean-demo",
@@ -26,7 +28,10 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": ["prettier", "git add"]
+    "{src,test}/**/*.ts": [
+      "prettier",
+      "git add"
+    ]
   },
   "config": {
     "commitizen": {
@@ -34,8 +39,7 @@
     },
     "validate-commit-msg": {
       "types": "conventional-commit-types",
-      "helpMessage":
-        "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
     }
   },
   "jest": {
@@ -43,8 +47,15 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 90,
@@ -102,5 +113,9 @@
   },
   "homepage": "https://www.lotteryjs.com",
   "license": "MIT",
-  "keywords": ["carousel", "3d-carousel", "flexible-3d-carousel"]
+  "keywords": [
+    "carousel",
+    "3d-carousel",
+    "flexible-3d-carousel"
+  ]
 }
