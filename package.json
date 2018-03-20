@@ -2,19 +2,16 @@
   "name": "flexible-3d-carousel",
   "version": "0.0.0-development",
   "description": "flexible-3d-carousel React component",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "files": [
-    "css",
-    "es",
-    "lib",
-    "umd"
-  ],
+  "main": "umd/flexible-3d-carousel.min.js",
+  "files": ["umd"],
   "scripts": {
-    "lint": "tslint -t codeFrame 'src/**/*.ts' 'src/**/*.tsx'",
+    "lint:stylelint": "stylelint -s scss \"src/**/*.scss\"",
+    "lint:tslint": "tslint \"{src,test}/**/*.{ts,tsx}\" -t codeFrame",
     "build": "nwb build-web-module src/core/index.ts",
+    "build:demo": "nwb build-web-app demo/src/index.tsx",
     "clean": "nwb clean-module && nwb clean-demo",
     "start": "nwb serve-web-app demo/src/index.tsx",
+    "demo": "npm run build:demo && http-server dist/ -p 3000",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
@@ -29,10 +26,7 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier",
-      "git add"
-    ]
+    "{src,test}/**/*.ts": ["prettier", "git add"]
   },
   "config": {
     "commitizen": {
@@ -40,7 +34,8 @@
     },
     "validate-commit-msg": {
       "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+      "helpMessage":
+        "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
     }
   },
   "jest": {
@@ -48,15 +43,8 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
     "coverageThreshold": {
       "global": {
         "branches": 90,
@@ -68,6 +56,7 @@
     "collectCoverage": false
   },
   "dependencies": {
+    "qreact": "^2.1.0",
     "raf": "^3.4.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
@@ -85,22 +74,26 @@
     "commitizen": "^2.9.6",
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
+    "es3ify-webpack-plugin": "0.0.1",
     "fork-ts-checker-webpack-plugin": "^0.4.1",
+    "http-server": "^0.11.1",
     "husky": "^0.14.3",
     "jest": "^22.4.2",
     "lint-staged": "^7.0.0",
-    "nwb": "0.22.x",
+    "nwb": "^0.21.5",
     "nwb-sass": "^0.8.3",
     "react-hot-loader": "^4.0.0",
     "semantic-release": "^15.1.2",
+    "stylelint-config-palantir": "^3.0.2",
+    "stylelint-scss": "^2.5.0",
+    "travis-deploy-once": "^4.4.1",
     "ts-jest": "^22.4.1",
-    "ts-loader": "^4.0.1",
+    "ts-loader": "^4.1.0",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
     "typedoc": "^0.11.1",
     "typescript": "^2.7.2",
-    "validate-commit-msg": "^2.14.0",
-    "travis-deploy-once": "^4.4.1"
+    "validate-commit-msg": "^2.14.0"
   },
   "author": "Kirk.Wang <kirk.w.wang@gmail.com>",
   "repository": {
@@ -109,7 +102,5 @@
   },
   "homepage": "https://www.lotteryjs.com",
   "license": "MIT",
-  "keywords": [
-    "react-component"
-  ]
+  "keywords": ["carousel", "3d-carousel", "flexible-3d-carousel"]
 }

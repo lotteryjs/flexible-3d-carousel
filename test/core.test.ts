@@ -4,8 +4,8 @@
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
 
-import { Animation } from "../src/core/animation";
-import { Core } from "../src/core/index";
+import Animation from "../src/core/animation";
+import Core from "../src/core/index";
 import { ICore, IItemStyle, IOptions } from "../src/core/props";
 
 describe("Core", () => {

@@ -5,10 +5,10 @@
  */
 
 import * as React from "react";
-import { Core } from "../core";
+import Core from "../core";
 import * as styles from "./ReactUI.scss";
 
-export class ReactUI extends React.PureComponent<any, any> {
+export default class ReactUI extends React.PureComponent<any, any> {
     private core: any;
 
     constructor(props: any) {
@@ -80,8 +80,8 @@ export class ReactUI extends React.PureComponent<any, any> {
                 onMouseMove={this.onMouseMove}
                 onMouseLeave={this.onMouseLeave}
             >
-                <div className={styles.itemH} style={{ paddingTop: height }}>
-                    <div className={styles.itemCon}>
+                <div className={styles["item-height"]} style={{ paddingTop: height }}>
+                    <div className={styles["item-content"]}>
                         <img src={img} alt={title} />
                     </div>
                 </div>
@@ -93,7 +93,7 @@ export class ReactUI extends React.PureComponent<any, any> {
         const { itemsStyle } = this.state;
         return (
             <div className={styles.canvas}>
-                <div className={styles.canvasH}>
+                <div className={styles["canvas-height"]}>
                     {itemsStyle && itemsStyle.map((style: any, index: number) => this.renderItem(style, index))}
                 </div>
             </div>

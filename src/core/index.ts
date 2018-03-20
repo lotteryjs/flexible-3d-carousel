@@ -4,10 +4,10 @@
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
 
-import { Animation } from "./animation";
+import Animation from "./animation";
 import { IAnimation, ICore, IItemStyle, IOptions } from "./props";
 
-export class Core implements ICore {
+export default class Core implements ICore {
     /**
      * 默认属性
      */

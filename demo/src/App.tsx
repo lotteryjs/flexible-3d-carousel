@@ -6,18 +6,22 @@
 
 import * as React from "react";
 import { hot } from "react-hot-loader";
+import ReactUI from "../../src/react-ui/ReactUI";
 
-import { ReactUI } from "../../src/react-ui/ReactUI";
-
+declare var module: any;
 export class Root extends React.PureComponent<any, any> {
     public render() {
         return (
             <div>
-                <h1 style={{ textAlign: "center" }}>flexible-3d-carousel Demo</h1>
+                <h1 style={{ textAlign: "center" }}>flexible</h1>
                 <ReactUI />
             </div>
         );
     }
 }
+let App = Root;
+if (module.hot) {
+    App = hot(module)(Root);
+}
 
-export const App = hot(module)(Root);
+export default App;

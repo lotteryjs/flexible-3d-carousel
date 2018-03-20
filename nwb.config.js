@@ -1,7 +1,9 @@
 const path = require("path");
+const ES3ifyPlugin = require('es3ify-webpack-plugin');
 
 const ENV_TEST = process.env.NODE_ENV === "test";
 const ENV_DEV = process.env.NODE_ENV === "development";
+const ENV_PROD = process.env.NODE_ENV === "production";
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 // ts,tsx
@@ -35,7 +37,7 @@ const sassCSS = {
   }
 };
 
-module.exports = {
+const config = {
   type: "web-app",
   npm: {
     esModules: false,
@@ -45,6 +47,9 @@ module.exports = {
         react: "React"
       }
     }
+  },
+  devServer: {
+    disableHostCheck: true,
   },
   webpack: {
     rules: {
@@ -56,17 +61,17 @@ module.exports = {
         // query: { publicPath: cdn },
       }
     },
+    uglify: {
+      uglifyOptions: {
+        mangle: false,
+        beautify: true
+      }
+    },
     extra: {
       module: {
         rules: [tsTsx]
       },
-      plugins: [
-        new ForkTsCheckerWebpackPlugin({
-          tslint: true,
-          checkSyntacticErrors: true,
-          watch: ['./src'] // optional but improves performance (fewer stat calls)
-        }),
-      ],
+      plugins: [],
       resolve: {
         extensions: [".js", ".json", ".ts", ".tsx"]
       }
@@ -79,3 +84,25 @@ module.exports = {
     }
   }
 };
+
+if (ENV_DEV) {
+  config.webpack.extra.plugins.push(
+    new ForkTsCheckerWebpackPlugin({
+      tslint: true,
+      checkSyntacticErrors: true,
+      watch: ['./src'] // optional but improves performance (fewer stat calls)
+    })
+  );
+}
+
+if (ENV_PROD){
+  config.webpack.extra.plugins.push(
+    new ES3ifyPlugin()
+  );
+  config.webpack.aliases = {
+    'react': 'qreact/dist/ReactIE',
+    'react-dom': 'qreact/dist/ReactIE'
+  };
+}
+
+module.exports = config;

@@ -3,10 +3,10 @@
  *
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
-import raf from "raf";
+import * as raf from "raf";
 import { ICore } from "./props";
 
-export class Animation {
+export default class Animation {
     public core: ICore;
     public rotation: number;
     public destRotation: number;
