@@ -7,9 +7,10 @@
 import * as React from "react";
 import Core from "../core";
 import * as styles from "./ReactUI.scss";
+import { ICore } from "../core/props";
 
 export default class ReactUI extends React.PureComponent<any, any> {
-    private core: any;
+    private core: ICore;
 
     constructor(props: any) {
         super(props);
@@ -62,6 +63,7 @@ export default class ReactUI extends React.PureComponent<any, any> {
             count: this.state.awards.length,
             width: 222,
             height: 323,
+            autoPlay: false,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
                 this.setState({
@@ -75,11 +77,13 @@ export default class ReactUI extends React.PureComponent<any, any> {
     public renderItem(style: any, index: number) {
         const { top, left, width, height, zIndex } = style;
         const { img, title } = this.state.awards[index];
+        delete style.height;
+        const cssStyle = top ? { top, left, width, zIndex } : style;
         return (
             <div
                 key={index}
                 className={styles.item}
-                style={{ top, left, width, zIndex }}
+                style={cssStyle}
                 onMouseMove={this.onMouseMove}
                 onMouseLeave={this.onMouseLeave}
             >
@@ -117,10 +121,10 @@ export default class ReactUI extends React.PureComponent<any, any> {
     }
 
     private onMouseMove = () => {
-        this.core.stop();
+        // this.core.stop();
     };
 
     private onMouseLeave = () => {
-        this.core.play();
+        // this.core.play();
     };
 }

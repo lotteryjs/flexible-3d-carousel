@@ -99,6 +99,16 @@ export default class Core implements ICore {
         this.options.autoPlay = false;
     }
 
+    public getTransform() {
+        const prefixes: any[] = "transform WebkitTransform MozTransform OTransform msTransform".split(" ");
+        const div = document.createElement("div");
+        for (let i = 0, len = prefixes.length; i < len; i++) {
+            if (div && div.style[prefixes[i]] !== undefined) {
+                return prefixes[i];
+            }
+        }
+        return false;
+    }
     /**
      * 将css数据吐出去
      */
@@ -106,13 +116,22 @@ export default class Core implements ICore {
         const styles: IItemStyle[] = this.calcStyles(rotation);
         for (let i = 0, count = styles.length; i < count; i++) {
             const style: IItemStyle = styles[i];
-            styles[i] = {
-                left: typeof style.left === "number" && `${style.left * 100}%`,
-                top: typeof style.top === "number" && `${style.top * 100}%`,
-                width: typeof style.width === "number" && `${style.width * 100}%`,
-                height: typeof style.height === "number" && `${style.height * 100}%`,
-                zIndex: styles[i].zIndex,
-            };
+            const trans = this.getTransform();
+            const left = typeof style.left === "number" && `${style.left * 100}%`;
+            const top = typeof style.top === "number" && `${style.top * 100}%`;
+            const width = typeof style.width === "number" && `${style.width * 100}%`;
+            const height = typeof style.height === "number" && `${style.height * 100}%`;
+            const zIndex = style.zIndex;
+            if (trans && i > 0) {
+                styles[i] = {
+                    [trans]: `translate(${left}, ${top}) translateZ(0) scale(${style.scale})`,
+                    zIndex: styles[i].zIndex,
+                    width: `${this.percentageW * 100}%`,
+                    height,
+                };
+            } else {
+                styles[i] = { left, top, width, height, zIndex };
+            }
         }
         this.options.render(styles);
     }
@@ -156,6 +175,7 @@ export default class Core implements ICore {
             top: this.originY,
             width: this.options.itemWrapW,
             height: this.percentageTopH,
+            scale: 1,
             zIndex: 0,
         });
         for (let i = 0; i < count; i++) {
@@ -168,6 +188,7 @@ export default class Core implements ICore {
                 top: this.originY + y,
                 width,
                 height: this.percentageTopH,
+                scale,
                 zIndex: Math.abs(Math.ceil(width * 100)),
             });
             rot += this.spacing;

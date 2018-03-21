@@ -8,27 +8,34 @@ export interface IItemStyle {
     /**
      * item距左边
      */
-    left: number | string;
+    left?: number | string;
 
     /**
      * item距顶部
      */
-    top: number | string;
+    top?: number | string;
 
     /**
      * item宽度
      */
-    width: number | string;
+    width?: number | string;
 
     /**
      * item高度
      */
-    height: number | string;
+    height?: number | string;
+
+    /**
+     * 缩放
+     */
+    scale?: number;
 
     /**
      * item层级
      */
-    zIndex: number;
+    zIndex?: number;
+
+    [key: string]: number | string;
 }
 
 export interface IOptions {
