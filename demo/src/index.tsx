@@ -3,7 +3,7 @@
  *
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
-
+import "normalize.css";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./App";

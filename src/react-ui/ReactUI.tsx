@@ -14,6 +14,7 @@ export default class ReactUI extends React.PureComponent<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
+            itemWrapStyle: {},
             itemsStyle: [],
             awards: [
                 {
@@ -62,8 +63,10 @@ export default class ReactUI extends React.PureComponent<any, any> {
             width: 222,
             height: 323,
             render: (itemsStyle: any) => {
+                const itemWrapStyle = itemsStyle.shift();
                 this.setState({
                     itemsStyle,
+                    itemWrapStyle,
                 });
             },
         });
@@ -80,9 +83,24 @@ export default class ReactUI extends React.PureComponent<any, any> {
                 onMouseMove={this.onMouseMove}
                 onMouseLeave={this.onMouseLeave}
             >
-                <div className={styles["item-height"]} style={{ paddingTop: height }}>
+                <div style={{ paddingTop: height }}>
                     <div className={styles["item-content"]}>
                         <img src={img} alt={title} />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    public renderItemWrap() {
+        const { itemWrapStyle, itemsStyle } = this.state;
+        const { top, left, width, height, zIndex } = itemWrapStyle;
+        return (
+            <div className={styles["item-wrap"]} style={{ top, left, width, zIndex }}>
+                <div style={{ paddingTop: height }}>
+                    <div className={styles["item-wrap-content"]}>
+                        {itemsStyle.length &&
+                            itemsStyle.map((style: any, index: number) => this.renderItem(style, index))}
                     </div>
                 </div>
             </div>
@@ -93,9 +111,7 @@ export default class ReactUI extends React.PureComponent<any, any> {
         const { itemsStyle } = this.state;
         return (
             <div className={styles.canvas}>
-                <div className={styles["canvas-height"]}>
-                    {itemsStyle && itemsStyle.map((style: any, index: number) => this.renderItem(style, index))}
-                </div>
+                <div className={styles["canvas-height"]}>{itemsStyle.length && this.renderItemWrap()}</div>
             </div>
         );
     }

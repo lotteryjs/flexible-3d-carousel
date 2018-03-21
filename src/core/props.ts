@@ -66,6 +66,12 @@ export interface IOptions {
     height: number;
 
     /**
+     * itemWrap相对于画布宽的百分率
+     * @default 0.25
+     */
+    itemWrapW?: number;
+
+    /**
      * item相对于画布宽的百分率
      * @default 0.25
      */

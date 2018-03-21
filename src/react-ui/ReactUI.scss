@@ -1,25 +1,37 @@
 .canvas {
   position: relative;
-  margin: 100px auto;
+  margin: 0px auto 0px;
   background: rgb(186, 226, 189);
-  width: 60%;
+  width: 100%;
+  max-width: 800px;
 }
 
 .canvas-height {
-  padding-top: 50%;
+  padding-top: 60%;
+}
+
+.item-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.item-wrap-content {
+  position: absolute;
+  background: #333;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .item {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
   transform: translateZ(0);
   cursor: pointer;
-  width: 25%;
-}
-
-.item-height {
-  padding-top: 130%;
 }
 
 .item-content {

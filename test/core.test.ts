@@ -16,6 +16,7 @@ describe("Core", () => {
             count: 3,
             width: 222,
             height: 323,
+            itemWrapW: 0.25,
             percentageW: 0.25,
             farScale: 0.5,
             speed: 0.03,

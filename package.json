@@ -67,6 +67,7 @@
     "collectCoverage": false
   },
   "dependencies": {
+    "normalize.css": "^8.0.0",
     "qreact": "^2.1.0",
     "raf": "^3.4.0",
     "react": "^16.2.0",

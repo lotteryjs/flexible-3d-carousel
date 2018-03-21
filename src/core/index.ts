@@ -16,7 +16,8 @@ export default class Core implements ICore {
         count: 8,
         width: 222,
         height: 323,
-        percentageW: 0.25,
+        itemWrapW: 0.25,
+        percentageW: 1,
         farScale: 0.5,
         speed: 0.03,
         autoPlay: true,
@@ -125,7 +126,7 @@ export default class Core implements ICore {
         this.percentageTopH = height / width; // eg.padding-top: 144%
         this.originX = 0.5;
         this.originY = 0.5;
-        this.radiusX = 0.5;
+        this.radiusX = 2;
         this.radiusY = 0.5;
         this.rotation = Math.PI / 2;
         this.spacing = 2 * Math.PI / count;
@@ -149,6 +150,14 @@ export default class Core implements ICore {
         const styles: IItemStyle[] = [];
         const { count, farScale } = this.options;
         const spacingScale = (1 - farScale) / 2;
+        // item-wrap
+        styles.push({
+            left: this.originX - this.options.itemWrapW / 2,
+            top: this.originY,
+            width: this.options.itemWrapW,
+            height: this.percentageTopH,
+            zIndex: 0,
+        });
         for (let i = 0; i < count; i++) {
             const x = Math.cos(rot) * this.radiusX;
             const y = Math.sin(rot) * this.radiusY;
