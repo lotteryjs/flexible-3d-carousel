@@ -104,7 +104,7 @@ export default class Core implements ICore {
         const div = document.createElement("div");
         for (let i = 0, len = prefixes.length; i < len; i++) {
             if (div && div.style[prefixes[i]] !== undefined) {
-                return prefixes[i];
+                // return prefixes[i];
             }
         }
         return false;
