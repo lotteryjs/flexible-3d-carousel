@@ -3,7 +3,7 @@
  *
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
-import * as raf from "raf";
+// import * as raf from "raf";
 import { ICore } from "./props";
 
 export default class Animation {

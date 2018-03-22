@@ -4,6 +4,7 @@
   "description": "flexible-3d-carousel React component",
   "main": "umd/flexible-3d-carousel.min.js",
   "files": [
+    "lib",
     "umd"
   ],
   "scripts": {

@@ -42,10 +42,7 @@ const config = {
   npm: {
     esModules: false,
     umd: {
-      global: "flexible3dCarousel",
-      externals: {
-        react: "React"
-      }
+      global: "flexible3dCarousel"
     }
   },
   devServer: {
