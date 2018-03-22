@@ -4,32 +4,39 @@
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
 import * as raf from "raf";
-import { ICore } from "./props";
+import { ICarousel } from "./props";
 
 export default class Animation {
-    public core: ICore;
+    public carousel: ICarousel;
     public rotation: number;
     public destRotation: number;
+    public raf: number;
 
-    constructor(core: ICore) {
-        this.core = core;
-        this.rotation = this.core.rotation;
-        this.destRotation = this.rotation + this.core.spacing;
+    constructor(carousel: ICarousel) {
+        const { rotation } = carousel;
+        this.carousel = carousel;
+        this.rotation = rotation;
+        this.destRotation = this.rotation;
     }
 
     public init() {
-        let startTime: number;
+        // 是否已经初始化
+        if (this.raf) {
+            return;
+        }
+        let startTime: number = new Date().getTime();
         let endTime: number;
+        const { slideDelay, slideSpeed } = this.carousel.options;
         const drawFrame = () => {
             if (startTime) {
                 endTime = new Date().getTime();
-                if ((endTime - startTime) / 1000 >= this.core.options.autoPlayDelay) {
-                    this.destRotation += this.core.spacing;
+                if ((endTime - startTime) / 1000 >= slideDelay) {
+                    this.destRotation += this.carousel.spacing;
                     startTime = null;
                 }
             }
             if (this.rotation < this.destRotation) {
-                const tmpRotation = this.rotation + this.core.options.speed;
+                const tmpRotation = this.rotation + slideSpeed;
                 if (tmpRotation >= this.destRotation) {
                     this.rotation = this.destRotation;
                     startTime = new Date().getTime();
@@ -37,8 +44,8 @@ export default class Animation {
                     this.rotation = tmpRotation;
                 }
             }
-            this.core.render(this.rotation);
-            raf(drawFrame);
+            this.carousel.render(this.rotation);
+            this.raf = raf(drawFrame);
         };
         drawFrame();
     }

@@ -1,4 +1,5 @@
 .canvas {
+  display: none;
   position: relative;
   margin: 0 auto 0;
   background: rgb(186, 226, 189);
@@ -26,7 +27,7 @@
 }
 
 .item {
-  display: none;
+  // display: none;
   position: absolute;
   top: 0;
   left: 0;

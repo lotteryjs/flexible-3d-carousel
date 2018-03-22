@@ -5,12 +5,12 @@
  */
 
 import * as React from "react";
-import Core from "../../src";
+import { Carousel } from "../../src/carousel";
 import * as styles from "./ReactUI.scss";
-import { ICore } from "../../src/props";
+import { ICarousel } from "../../src/carousel/props";
 
 export default class ReactUI extends React.PureComponent<any, any> {
-    public core: ICore;
+    public core: ICarousel;
 
     constructor(props: any) {
         super(props);
@@ -59,11 +59,11 @@ export default class ReactUI extends React.PureComponent<any, any> {
     }
 
     public componentDidMount() {
-        this.core = new Core({
+        this.core = new Carousel({
             count: this.state.awards.length,
             width: 222,
             height: 323,
-            autoPlay: true,
+            translate: false,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
                 this.setState({
@@ -98,9 +98,9 @@ export default class ReactUI extends React.PureComponent<any, any> {
 
     public renderItemWrap() {
         const { itemWrapStyle, itemsStyle } = this.state;
-        const { top, left, width, height, zIndex } = itemWrapStyle;
+        const { top, left, width, height } = itemWrapStyle;
         return (
-            <div className={styles["item-wrap"]} style={{ top, left, width, zIndex }}>
+            <div className={styles["item-wrap"]} style={{ top, left, width }}>
                 <div style={{ paddingTop: height }}>
                     <div className={styles["item-wrap-content"]}>
                         {itemsStyle.length &&
