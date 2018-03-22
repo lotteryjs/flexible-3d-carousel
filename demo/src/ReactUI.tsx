@@ -5,9 +5,9 @@
  */
 
 import * as React from "react";
-import Core from "../core";
+import Core from "../../src";
 import * as styles from "./ReactUI.scss";
-import { ICore } from "../core/props";
+import { ICore } from "../../src/props";
 
 export default class ReactUI extends React.PureComponent<any, any> {
     public core: ICore;

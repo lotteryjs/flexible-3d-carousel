@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { hot } from "react-hot-loader";
-import ReactUI from "../../src/react-ui/ReactUI";
+import ReactUI from "./ReactUI";
 
 declare var module: any;
 export class Root extends React.PureComponent<any, any> {

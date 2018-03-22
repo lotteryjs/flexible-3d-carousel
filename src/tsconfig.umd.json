@@ -1,0 +1,9 @@
+{
+    "extends": "../tsconfig",
+    "compilerOptions": {
+        "module": "umd",
+        "sourceMap": false,
+        "outDir": "../umd",
+        "target": "es3"
+    }
+}

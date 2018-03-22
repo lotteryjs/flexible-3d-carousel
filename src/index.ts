@@ -104,7 +104,7 @@ export default class Core implements ICore {
         const div = document.createElement("div");
         for (let i = 0, len = prefixes.length; i < len; i++) {
             if (div && div.style[prefixes[i]] !== undefined) {
-                // return prefixes[i];
+                return prefixes[i];
             }
         }
         return false;
@@ -122,16 +122,16 @@ export default class Core implements ICore {
             const width = typeof style.width === "number" && `${style.width * 100}%`;
             const height = typeof style.height === "number" && `${style.height * 100}%`;
             const zIndex = style.zIndex;
-            // if (trans && i > 0) {
-            //     styles[i] = {
-            //         [trans]: `translate(${left}, ${top}) translateZ(0) scale(${style.scale})`,
-            //         zIndex: styles[i].zIndex,
-            //         width: `${this.percentageW * 100}%`,
-            //         height,
-            //     };
-            // } else {
-            styles[i] = { left, top, width, height, zIndex };
-            // }
+            if (trans && i > 0) {
+                styles[i] = {
+                    [trans]: `translate(${left}, ${top}) translateZ(0) scale(${style.scale})`,
+                    zIndex: styles[i].zIndex,
+                    width: `${this.percentageW * 100}%`,
+                    height,
+                };
+            } else {
+                styles[i] = { left, top, width, height, zIndex };
+            }
         }
         this.options.render(styles);
     }

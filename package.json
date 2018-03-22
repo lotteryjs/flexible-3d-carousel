@@ -2,15 +2,17 @@
   "name": "flexible-3d-carousel",
   "version": "0.0.0-development",
   "description": "flexible-3d-carousel React component",
-  "main": "umd/flexible-3d-carousel.min.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "files": [
+    "es",
     "lib",
     "umd"
   ],
   "scripts": {
     "lint:stylelint": "stylelint -s scss \"src/**/*.scss\"",
-    "lint": "tslint \"{src,test}/**/*.{ts,tsx}\" -t codeFrame",
-    "build": "nwb build-web-module src/core/index.ts",
+    "lint": "tslint \"{src,test,demo}/**/*.{ts,tsx}\" -t codeFrame",
+    "build": "nwb clean-module && tsc -p ./src/tsconfig.lib.json && tsc -p ./src/tsconfig.es.json && tsc -p ./src/tsconfig.umd.json",
     "build:demo": "nwb build-web-app demo/src/index.tsx",
     "clean": "nwb clean-module && nwb clean-demo",
     "start": "nwb serve-web-app demo/src/index.tsx",

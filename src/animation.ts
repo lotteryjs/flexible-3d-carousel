@@ -3,7 +3,7 @@
  *
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
-// import * as raf from "raf";
+import * as raf from "raf";
 import { ICore } from "./props";
 
 export default class Animation {
@@ -18,10 +18,9 @@ export default class Animation {
     }
 
     public init() {
-        // let startTime: number;
-        // let endTime: number;
+        let startTime: number;
+        let endTime: number;
         const drawFrame = () => {
-            /*
             if (startTime) {
                 endTime = new Date().getTime();
                 if ((endTime - startTime) / 1000 >= this.core.options.autoPlayDelay) {
@@ -40,7 +39,6 @@ export default class Animation {
             }
             this.core.render(this.rotation);
             raf(drawFrame);
-            */
         };
         drawFrame();
     }

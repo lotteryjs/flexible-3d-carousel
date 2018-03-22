@@ -1,11 +1,11 @@
 const path = require("path");
 const ES3ifyPlugin = require('es3ify-webpack-plugin');
 
-const ENV_TEST = process.env.NODE_ENV === "test";
 const ENV_DEV = process.env.NODE_ENV === "development";
 const ENV_PROD = process.env.NODE_ENV === "production";
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
+console.log(process.env.NODE_ENV);
 // ts,tsx
 const tsTsx = {
   test: /\.tsx?$/,
@@ -17,8 +17,8 @@ const tsTsx = {
 const sass = {
   options: {
     data: `
-      @import "../assets/css/_variables";
-      @import "../assets/css/sprites";
+      @import "./assets/css/_variables";
+      @import "./assets/css/sprites";
     `,
     includePaths: [path.resolve("demo/src")]
   }
@@ -38,17 +38,21 @@ const sassCSS = {
 };
 
 const config = {
-  type: "web-app",
+  type: "web-module",
   npm: {
-    esModules: false,
+    esModules: true,
     umd: {
-      global: "flexible3dCarousel"
+      global: "flexible3dCarousel",
+      externals: {}
     }
   },
   devServer: {
     disableHostCheck: true,
   },
   webpack: {
+    html: {
+      template: 'demo/src/index.html'
+    },
     rules: {
       'sass-css': sassCSS,
       'sass-postcss': sassPostCSS,
