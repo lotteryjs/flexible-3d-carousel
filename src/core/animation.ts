@@ -14,27 +14,33 @@ export default class Animation {
     constructor(core: ICore) {
         this.core = core;
         this.rotation = this.core.rotation;
-        this.destRotation = this.rotation;
+        this.destRotation = this.rotation + this.core.spacing;
     }
 
     public init() {
-        let startTime: number = new Date().getTime();
-        let endTime: number;
+        // let startTime: number;
+        // let endTime: number;
         const drawFrame = () => {
-            endTime = new Date().getTime();
-            if ((endTime - startTime) / 1000 >= this.core.options.autoPlayDelay && this.core.options.autoPlay) {
-                this.destRotation += this.core.spacing;
+            /*
+            if (startTime) {
+                endTime = new Date().getTime();
+                if ((endTime - startTime) / 1000 >= this.core.options.autoPlayDelay) {
+                    this.destRotation += this.core.spacing;
+                    startTime = null;
+                }
             }
-            if (this.rotation <= this.destRotation) {
-                this.rotation += this.core.options.speed;
-                startTime = new Date().getTime();
+            if (this.rotation < this.destRotation) {
+                const tmpRotation = this.rotation + this.core.options.speed;
+                if (tmpRotation >= this.destRotation) {
+                    this.rotation = this.destRotation;
+                    startTime = new Date().getTime();
+                } else {
+                    this.rotation = tmpRotation;
+                }
             }
             this.core.render(this.rotation);
-            if (this.rotation >= 2 * Math.PI + this.core.rotation) {
-                this.rotation = this.core.rotation;
-                this.destRotation = this.rotation;
-            }
             raf(drawFrame);
+            */
         };
         drawFrame();
     }

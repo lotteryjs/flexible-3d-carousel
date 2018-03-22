@@ -10,7 +10,7 @@ import * as styles from "./ReactUI.scss";
 import { ICore } from "../core/props";
 
 export default class ReactUI extends React.PureComponent<any, any> {
-    private core: ICore;
+    public core: ICore;
 
     constructor(props: any) {
         super(props);
@@ -63,7 +63,7 @@ export default class ReactUI extends React.PureComponent<any, any> {
             count: this.state.awards.length,
             width: 222,
             height: 323,
-            autoPlay: false,
+            autoPlay: true,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
                 this.setState({

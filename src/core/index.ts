@@ -16,7 +16,7 @@ export default class Core implements ICore {
         count: 8,
         width: 222,
         height: 323,
-        itemWrapW: 0.25,
+        itemWrapW: 0.2,
         percentageW: 1,
         farScale: 0.5,
         speed: 0.03,
@@ -146,7 +146,7 @@ export default class Core implements ICore {
         this.originX = 0.5;
         this.originY = 0.5;
         this.radiusX = 2;
-        this.radiusY = 0.5;
+        this.radiusY = 0.25;
         this.rotation = Math.PI / 2;
         this.spacing = 2 * Math.PI / count;
         this.animation = new Animation(this);
