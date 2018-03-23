@@ -6,11 +6,11 @@
 
 import * as React from "react";
 import { Carousel } from "../../src/carousel";
-import * as styles from "./ReactUI.scss";
+import * as styles from "./Flexible3DCarousel.scss";
 import { ICarousel } from "../../src/carousel/props";
 
-export default class ReactUI extends React.PureComponent<any, any> {
-    public core: ICarousel;
+export class Flexible3DCarousel extends React.PureComponent<any, any> {
+    public carousel: ICarousel;
 
     constructor(props: any) {
         super(props);
@@ -59,10 +59,12 @@ export default class ReactUI extends React.PureComponent<any, any> {
     }
 
     public componentDidMount() {
-        this.core = new Carousel({
+        this.carousel = new Carousel({
             count: this.state.awards.length,
             width: 222,
             height: 323,
+            autoSlide: true,
+            slideDelay: 1,
             translate: false,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
@@ -121,10 +123,10 @@ export default class ReactUI extends React.PureComponent<any, any> {
     }
 
     private onMouseMove = () => {
-        // this.core.stop();
+        this.carousel.animation.slideToggle = false;
     };
 
     private onMouseLeave = () => {
-        // this.core.play();
+        this.carousel.animation.slideToggle = true;
     };
 }

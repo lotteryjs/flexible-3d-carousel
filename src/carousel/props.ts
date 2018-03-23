@@ -152,6 +152,31 @@ export interface IAnimation {
     rotation: number;
 
     /**
+     * 目标roation值
+     */
+    destRotation: number;
+
+    /**
+     * 当前raf
+     */
+    raf: number;
+
+    /**
+     * 滑动动画开始时间戳
+     */
+    slideStartTimestamp: number;
+
+    /**
+     * 滑动动画结束时间戳
+     */
+    slideEndTimestamp: number;
+
+    /**
+     * 开启/停止slide
+     */
+    slideToggle: boolean;
+
+    /**
      * 初始化FPS
      */
     init(): void;

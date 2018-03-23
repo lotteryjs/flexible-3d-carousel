@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { hot } from "react-hot-loader";
-import ReactUI from "./ReactUI";
+import { Flexible3DCarousel } from "../../src/ReactUI/Flexible3DCarousel";
 
 declare var module: any;
 export class Root extends React.PureComponent<any, any> {
@@ -14,14 +14,10 @@ export class Root extends React.PureComponent<any, any> {
         return (
             <div>
                 <h1 style={{ textAlign: "center" }}>flexible</h1>
-                <ReactUI />
+                <Flexible3DCarousel />
             </div>
         );
     }
 }
-let App = Root;
-if (module.hot) {
-    App = hot(module)(Root);
-}
 
-export default App;
+export const App = module.hot ? Root : hot(module)(Root);

@@ -9,4 +9,19 @@ interface IWindow {
     [key: string]: any;
 }
 
+interface ICssModule {
+    [className: string]: string;
+}
+
+declare module "*.scss" {
+    const styles: ICssModule;
+    export = styles;
+}
+
+declare module "*.css" {
+    const styles: ICssModule;
+    export = styles;
+}
+
+
 declare module "raf";

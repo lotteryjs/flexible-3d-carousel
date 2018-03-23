@@ -4,7 +4,7 @@
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
 
-import Animation from "../src/carousel/animation";
+import { Animation } from "../src/carousel/animation";
 import { Carousel } from "../src/carousel";
 import { ICarousel, IItemsStyle, IOptions } from "../src/carousel/props";
 

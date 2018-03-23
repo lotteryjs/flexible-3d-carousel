@@ -5,7 +5,7 @@
  */
 import { getTransform } from "./utils";
 import { ICarousel, IItemsStyle, IOptions, IAnimation } from "./props";
-import Animation from "./animation";
+import { Animation } from "./animation";
 
 export class Carousel implements ICarousel {
     /**
