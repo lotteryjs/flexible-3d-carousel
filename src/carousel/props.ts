@@ -81,6 +81,12 @@ export interface IOptions {
     slideSpeed?: number;
 
     /**
+     * 运动加速度
+     * @default 0.0025
+     */
+    speedAx?: number;
+
+    /**
      * 是否使用translate
      * @default true
      */
@@ -94,6 +100,13 @@ export interface IOptions {
 
 export interface IItemsStyle {
     [key: string]: number | string;
+}
+
+export interface ItemsData {
+    [key: number]: {
+        /** 当前项所在的弧度 */
+        rotation: number;
+    };
 }
 
 export interface ICarousel {
@@ -128,6 +141,11 @@ export interface ICarousel {
     animation: IAnimation;
 
     /**
+     * 记录item的相关数据
+     */
+    itemsData?: ItemsData;
+
+    /**
      * 初始化属性
      */
     initProps(): void;
@@ -145,6 +163,16 @@ export interface IAnimation {
      * 当前Core实例
      */
     carousel: ICarousel;
+
+    /**
+     * 速度
+     */
+    speed: number;
+
+    /**
+     * 加速度
+     */
+    ax: number;
 
     /**
      * 当前roation值
@@ -172,9 +200,24 @@ export interface IAnimation {
     slideEndTimestamp: number;
 
     /**
-     * 开启/停止slide
+     * 鼠标是否移入到item
      */
-    slideToggle: boolean;
+    mouseEnter: boolean;
+
+    /**
+     * 是否执行让任意一个元素移到正前方
+     */
+    toFront: boolean;
+
+    /**
+     * item移动到正前方的方向（顺时针为true）
+     */
+    direction: boolean;
+
+    /**
+     * 元素滑动到前面
+     */
+    bringToFront(index: number): void;
 
     /**
      * 初始化FPS

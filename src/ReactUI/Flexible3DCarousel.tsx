@@ -60,12 +60,12 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
 
     public componentDidMount() {
         this.carousel = new Carousel({
-            count: this.state.awards.length,
+            count: this.state.awards.length - 1,
             width: 222,
             height: 323,
             autoSlide: true,
-            slideDelay: 1,
-            translate: false,
+            slideDelay: 2,
+            translate: true,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
                 this.setState({
@@ -82,15 +82,14 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
         delete style.height;
         const cssStyle = top ? { top, left, width, zIndex } : style;
         return (
-            <div
-                key={index}
-                className={styles.item}
-                style={cssStyle}
-                onMouseMove={this.onMouseMove}
-                onMouseLeave={this.onMouseLeave}
-            >
+            <div key={index} className={styles.item} style={cssStyle}>
                 <div style={{ paddingTop: height }}>
-                    <div className={styles["item-content"]}>
+                    <div
+                        className={styles["item-content"]}
+                        onMouseEnter={this.onMouseEnter}
+                        onMouseLeave={this.onMouseLeave}
+                        onClick={this.onClick(index)}
+                    >
                         <img src={img} alt={title} />
                     </div>
                 </div>
@@ -122,11 +121,16 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
         );
     }
 
-    private onMouseMove = () => {
-        this.carousel.animation.slideToggle = false;
+    private onMouseEnter = () => {
+        console.log('enter');
+        this.carousel.animation.mouseEnter = true;
     };
 
     private onMouseLeave = () => {
-        this.carousel.animation.slideToggle = true;
+        this.carousel.animation.mouseEnter = false;
+    };
+
+    private onClick = (index: number) => () => {
+        this.carousel.animation.bringToFront(index);
     };
 }
