@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { hot } from "react-hot-loader";
-import { Flexible3DCarousel } from "../../src/ReactUI/Flexible3DCarousel";
+// import { Flexible3DCarousel } from "../../src/ReactUI/Flexible3DCarousel";
 
 declare var module: any;
 export class Root extends React.PureComponent<any, any> {
@@ -14,7 +14,7 @@ export class Root extends React.PureComponent<any, any> {
         return (
             <div>
                 <h1 style={{ textAlign: "center" }}>flexible</h1>
-                <Flexible3DCarousel />
+                {/* <Flexible3DCarousel /> */}
             </div>
         );
     }

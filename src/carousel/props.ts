@@ -76,13 +76,13 @@ export interface IOptions {
 
     /**
      * item滑动的速度
-     * @default 0.03
+     * @default 3
      */
     slideSpeed?: number;
 
     /**
      * 运动加速度
-     * @default 0.0025
+     * @default 0.25
      */
     speedAx?: number;
 
@@ -100,13 +100,6 @@ export interface IOptions {
 
 export interface IItemsStyle {
     [key: string]: number | string;
-}
-
-export interface ItemsData {
-    [key: number]: {
-        /** 当前项所在的弧度 */
-        rotation: number;
-    };
 }
 
 export interface ICarousel {
@@ -139,11 +132,6 @@ export interface ICarousel {
      * 动画实例
      */
     animation: IAnimation;
-
-    /**
-     * 记录item的相关数据
-     */
-    itemsData?: ItemsData;
 
     /**
      * 初始化属性
@@ -218,9 +206,4 @@ export interface IAnimation {
      * 元素滑动到前面
      */
     bringToFront(index: number): void;
-
-    /**
-     * 初始化FPS
-     */
-    init(): void;
 }

@@ -4,7 +4,7 @@
  * Licensed under the terms of the LICENSE file distributed with this project.
  */
 import { getTransform } from "./utils";
-import { ICarousel, IItemsStyle, IOptions, IAnimation, ItemsData } from "./props";
+import { ICarousel, IItemsStyle, IOptions, IAnimation } from "./props";
 import { Animation } from "./animation";
 
 export class Carousel implements ICarousel {
@@ -24,8 +24,8 @@ export class Carousel implements ICarousel {
         farScale: 0.5,
         autoSlide: true,
         slideDelay: 3,
-        slideSpeed: 0.03,
-        speedAx: 0.0025,
+        slideSpeed: 3,
+        speedAx: 0.25,
         translate: true,
         render: () => void 0,
     };
@@ -42,8 +42,6 @@ export class Carousel implements ICarousel {
 
     public animation: IAnimation;
 
-    public itemsData: ItemsData;
-
     constructor(options: IOptions) {
         this.options = {
             ...Carousel.defaultOptions,
@@ -52,15 +50,17 @@ export class Carousel implements ICarousel {
         this.initProps();
         this.render();
         this.animation = new Animation(this);
-        console.log(this.itemsData);
     }
 
     public initProps() {
-        const { width, height, count } = this.options;
+        const { width, height, count, slideSpeed, speedAx } = this.options;
+        // 高宽比
         this.itemPercentH = height / width;
         this.spacing = 2 * Math.PI / count;
         this.transform = getTransform();
-        this.itemsData = {};
+        // 因为放大了一百倍，所以缩小一百倍
+        this.options.slideSpeed = slideSpeed / 100;
+        this.options.speedAx = speedAx / 100;
     }
 
     public render(rotation: number = this.rotation) {
@@ -77,13 +77,7 @@ export class Carousel implements ICarousel {
         // 椭圆运动
         for (let i = 0; i < count; i++) {
             // 限制数值在2PI之内
-            if (rotation >= 2 * Math.PI) {
-                rotation = rotation - 2 * Math.PI;
-            }
-            if (!this.itemsData[i]) {
-                this.itemsData[i] = {};
-            }
-            this.itemsData[i].rotation = rotation;
+            rotation = rotation % (2 * Math.PI);
             const x = Math.cos(rotation) * radiusX;
             const y = Math.sin(rotation) * radiusY;
             const scale = y / radiusY * spacingScale + 1 - spacingScale;

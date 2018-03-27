@@ -35,33 +35,36 @@ export class Animation implements IAnimation {
         if (this.toFront) {
             return;
         }
-        const { rotation: center, itemsData, options } = this.carousel;
+        const { rotation: center, options, spacing } = this.carousel;
+        const { slideSpeed } = options;
         // 表明现在要进行bringToFront操作了
         this.toFront = true;
         // 赋值初始速度
-        this.speed = options.slideSpeed;
-        const data = itemsData[index];
+        this.speed = slideSpeed;
+        // 得到当前item的rotation
+        const itemRotation = (this.rotation + index * spacing) % (2 * Math.PI);
+        // 接下来就是计算它到center的最短距离了
         // 顺时针方向处理
-        if (data.rotation <= center) {
+        if (itemRotation <= center) {
             // 确定方向
             this.direction = true;
             // 要运动的距离
-            this.disRotation = center - data.rotation;
+            this.disRotation = center - itemRotation;
             // 目标边界值的处理
             this.destRotation = (this.rotation + this.disRotation) % (2 * Math.PI);
             return;
         }
         // 顺时针方向
-        if (data.rotation >= 3 * Math.PI / 2) {
+        if (itemRotation >= 3 * Math.PI / 2) {
             this.direction = true;
-            this.disRotation = 2 * Math.PI + center - data.rotation;
+            this.disRotation = 2 * Math.PI + center - itemRotation;
             // 目标边界值的处理
             this.destRotation = (this.rotation + this.disRotation) % (2 * Math.PI);
             return;
         }
         // 逆时针方向处理
         this.direction = false;
-        this.disRotation = data.rotation - center;
+        this.disRotation = itemRotation - center;
         this.destRotation = this.rotation - this.disRotation;
         // 边界值的处理
         if (this.destRotation < 0) {
