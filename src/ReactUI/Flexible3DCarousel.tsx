@@ -65,7 +65,7 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
             count: this.state.awards.length,
             width: 222,
             height: 323,
-            autoSlide: true,
+            autoSlide: false,
             slideDelay: 3,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
@@ -79,11 +79,28 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
         });
     }
 
+    public renderHalo() {
+        const { haloStyle } = this.state;
+        const ie678Filter = `progid:DXImageTransform.Microsoft.AlphaImageLoader(src=${
+            this.state.haloImg
+        }, enabled='true',sizingMethod='scale')`;
+        return detectIE8() ? (
+            <div className={styles["item-halo"]} style={haloStyle}>
+                <div className={styles["ie-678"]} style={{ filter: ie678Filter }} />
+            </div>
+        ) : (
+            <div className={styles["item-halo"]} style={haloStyle}>
+                <img src={this.state.haloImg} />
+            </div>
+        );
+    }
+
     public renderItem(style: any, index: number) {
         const { top, left, width, height, zIndex } = style;
         const { img, title } = this.state.awards[index];
         delete style.height;
         const cssStyle = top ? { top, left, width, zIndex } : style;
+        const { haloStyle } = this.state;
         return (
             <div key={index} className={styles.item} style={cssStyle}>
                 <div style={{ paddingTop: height }}>
@@ -94,6 +111,7 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
                         onClick={this.onClick(index)}
                     >
                         <img src={img} alt={title} />
+                        {index === haloStyle.index && this.renderHalo()}
                     </div>
                 </div>
             </div>
@@ -101,26 +119,14 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
     }
 
     public renderItemWrap() {
-        const { itemWrapStyle, itemsStyle, haloStyle } = this.state;
+        const { itemWrapStyle, itemsStyle } = this.state;
         const { top, left, width, height } = itemWrapStyle;
-        const ie678Filter = `progid:DXImageTransform.Microsoft.AlphaImageLoader(src=${
-            this.state.haloImg
-        }, sizingMethod='scale')`;
         return (
             <div className={styles["item-wrap"]} style={{ top, left, width }}>
                 <div style={{ paddingTop: height }}>
                     <div className={styles["item-wrap-content"]}>
                         {itemsStyle.length &&
                             itemsStyle.map((style: any, index: number) => this.renderItem(style, index))}
-                        {detectIE8() ? (
-                            <div className={styles["item-halo"]} style={haloStyle}>
-                                <span style={{ filter: ie678Filter }} />
-                            </div>
-                        ) : (
-                            <div className={styles["item-halo"]} style={haloStyle}>
-                                <img src={this.state.haloImg} />
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>

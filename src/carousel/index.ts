@@ -74,10 +74,8 @@ export class Carousel implements ICarousel {
         });
         // halo
         styles.push({
-            top: `${(originY + Math.sin(Math.PI / 2) * radiusY) * 100}%`,
             opacity: haloOpacity,
-            // filter: `alpha(opacity=${haloOpacity * 100})`,
-            filter: `filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=${haloOpacity * 100})`,
+            filter: `alpha(opacity=${haloOpacity * 100})`,
             display: "none",
         });
         // 椭圆运动
@@ -94,6 +92,7 @@ export class Carousel implements ICarousel {
             const zIndex = Math.abs(Math.ceil(scale * 100));
             if (+rotation.toFixed(2) === 1.57) {
                 styles[1].display = "block";
+                styles[1].index = i;
             }
             if (this.transform && translate) {
                 styles.push({

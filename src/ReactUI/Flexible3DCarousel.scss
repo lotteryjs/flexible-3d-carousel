@@ -54,7 +54,7 @@
 }
 
 .item-halo {
-  display: none;
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
@@ -62,19 +62,13 @@
   width: 100%;
   height: 100%;
 
-  span {
-    display: block;
-    position: absolute;
-    top: -50%;
-    border-radius: 5px;
+  .ie-678 {
     width: 100%;
     height: 100%;
   }
 
   img {
     display: block;
-    position: absolute;
-    top: -50%;
     border-radius: 5px;
     width: 100%;
     height: 100%;
