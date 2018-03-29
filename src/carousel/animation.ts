@@ -15,16 +15,19 @@ export class Animation implements IAnimation {
     public toFront: boolean;
     public raf: number;
     public speed: number;
-    public ax: number;
+    public easing: number;
+    public easingMin: number = 0.001;
     public slideStartTimestamp: number;
     public slideEndTimestamp: number;
     public mouseEnter: boolean = false;
+    public halo: number = 0;
+    public haloOpacity: number = 0;
 
     constructor(carousel: ICarousel) {
         const { rotation, options } = carousel;
         this.carousel = carousel;
         this.rotation = rotation;
-        this.ax = options.speedAx;
+        this.easing = options.easing;
         this.disRotation = 0;
         this.destRotation = 0;
         this.slideStartTimestamp = new Date().getTime();
@@ -35,13 +38,10 @@ export class Animation implements IAnimation {
         if (this.toFront) {
             return;
         }
-        const { rotation: center, options, spacing } = this.carousel;
-        const { slideSpeed } = options;
+        const { rotation: center, spacing } = this.carousel;
         // 表明现在要进行bringToFront操作了
         this.toFront = true;
-        // 赋值初始速度
-        this.speed = slideSpeed;
-        // 得到当前item的rotation
+        // 得到当前item的rotation，会存在
         const itemRotation = (this.rotation + index * spacing) % (2 * Math.PI);
         // 接下来就是计算它到center的最短距离了
         // 顺时针方向处理
@@ -55,7 +55,9 @@ export class Animation implements IAnimation {
             return;
         }
         // 顺时针方向
-        if (itemRotation >= 3 * Math.PI / 2) {
+        // 因为javascript精度问题，这里稍稍修正下
+        const wc = 0.000000001 * Math.PI / 180;
+        if (itemRotation >= 3 * Math.PI / 2 - wc) {
             this.direction = true;
             this.disRotation = 2 * Math.PI + center - itemRotation;
             // 目标边界值的处理
@@ -84,14 +86,11 @@ export class Animation implements IAnimation {
             if (!this.mouseEnter && autoSlide && !this.toFront) {
                 this.autoSlideAnimation();
             }
-            // 为了让鼠标移开时也能自动播放
-            if (this.mouseEnter) {
-                this.slideStartTimestamp = new Date().getTime();
-            }
+            this.haloAnimation();
             // 统一边界值处理
             this.rotation %= 2 * Math.PI;
             // 渲染到DOM
-            this.carousel.render(this.rotation);
+            this.carousel.render(this.rotation, this.haloOpacity);
             this.raf = raf(drawFrame);
         };
         drawFrame();
@@ -101,7 +100,7 @@ export class Animation implements IAnimation {
      * 元素自动滑动动画
      */
     private autoSlideAnimation() {
-        const { slideDelay, slideSpeed } = this.carousel.options;
+        const { slideDelay } = this.carousel.options;
         // 有开始时间戳，并且自动滑动为真
         if (this.slideStartTimestamp) {
             this.slideEndTimestamp = new Date().getTime();
@@ -112,14 +111,15 @@ export class Animation implements IAnimation {
             }
         }
         if (this.disRotation === 0) {
-            this.toFront = false;
             return;
         }
-        this.disRotation -= slideSpeed;
+        this.speed = this.disRotation * this.easing;
+        this.disRotation -= this.speed;
         if (this.disRotation > 0) {
-            this.rotation += slideSpeed;
+            this.halo = 0;
+            this.rotation += this.speed;
         }
-        if (this.disRotation < 0) {
+        if (this.disRotation < this.easingMin) {
             this.rotation = this.destRotation;
             this.disRotation = 0;
             this.slideStartTimestamp = new Date().getTime();
@@ -132,17 +132,22 @@ export class Animation implements IAnimation {
     private bringToFrontAnimation() {
         if (this.disRotation === 0) {
             this.toFront = false;
+            this.slideStartTimestamp = new Date().getTime();
             return;
         }
         // 运动方向处理
         if (this.direction) {
+            this.speed = this.disRotation * this.easing;
             this.disRotation -= this.speed;
             if (this.disRotation > 0) {
+                this.halo = 0;
                 this.rotation += this.speed;
             }
         } else {
+            this.speed = this.disRotation * this.easing;
             this.disRotation -= this.speed;
             if (this.disRotation > 0) {
+                this.halo = 0;
                 this.rotation -= this.speed;
                 // 边界值处理
                 if (this.rotation < 0) {
@@ -150,10 +155,18 @@ export class Animation implements IAnimation {
                 }
             }
         }
-        if (this.disRotation < 0) {
+        if (this.disRotation < this.easingMin) {
             this.rotation = this.destRotation;
             this.disRotation = 0;
         }
-        this.speed += this.ax;
+    }
+
+    /**
+     * 光晕动画
+     */
+    private haloAnimation() {
+        this.halo = (this.halo + 1) % 180;
+        const opacity = Math.sin(this.halo * Math.PI / 180);
+        this.haloOpacity = +opacity.toFixed(2);
     }
 }

@@ -17,3 +17,16 @@ export function getTransform() {
     }
     return "";
 }
+
+/**
+ * 判断是否是ie8以下版本
+ */
+export function ie8() {
+    const ua = navigator.userAgent.toLowerCase();
+    const isIE = ua.indexOf("msie") > -1;
+    if (isIE) {
+        const safariVersion = ua.match(/msie ([\d.]+)/)[1];
+        return +safariVersion <= 8;
+    }
+    return false;
+}

@@ -62,12 +62,13 @@ const config = {
         // query: { publicPath: cdn },
       }
     },
-    uglify: {
-      uglifyOptions: {
-        mangle: false,
-        beautify: true
-      }
-    },
+    // uglify: {
+    //   uglifyOptions: {
+    //     mangle: false,
+    //     beautify: false
+    //   }
+    // },
+    uglify: false,
     extra: {
       module: {
         rules: [tsTsx]

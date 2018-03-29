@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.0",
-    "qreact": "^2.1.0",
+    "qreact": "^1.1.8",
     "raf": "^3.4.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"

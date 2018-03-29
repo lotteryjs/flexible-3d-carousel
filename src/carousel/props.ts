@@ -75,16 +75,10 @@ export interface IOptions {
     slideDelay?: number;
 
     /**
-     * item滑动的速度
-     * @default 3
+     * 缓动系数
+     * @default 5
      */
-    slideSpeed?: number;
-
-    /**
-     * 运动加速度
-     * @default 0.25
-     */
-    speedAx?: number;
+    easing?: number;
 
     /**
      * 是否使用translate
@@ -141,9 +135,10 @@ export interface ICarousel {
     /**
      * 根据弧度计算item的style
      * @param {number} rotation 弧度
+     * @param {number} haloOpacity 光晕透明度
      * @default Math.PI / 2 默认正中间，90度
      */
-    render(rotation: number): void;
+    render(rotation: number, haloOpacity: number): void;
 }
 
 export interface IAnimation {
@@ -158,9 +153,14 @@ export interface IAnimation {
     speed: number;
 
     /**
-     * 加速度
+     * 缓动系数
      */
-    ax: number;
+    easing: number;
+
+    /**
+     * 给一个缓动的特定的最小值
+     */
+    easingMin: number;
 
     /**
      * 当前roation值

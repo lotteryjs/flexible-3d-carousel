@@ -5,7 +5,7 @@
  */
 
 import * as React from "react";
-import { Carousel } from "../../src/carousel";
+import { Carousel, detectIE8 } from "../../src/carousel";
 import * as styles from "./Flexible3DCarousel.scss";
 import { ICarousel } from "../../src/carousel/props";
 
@@ -16,7 +16,9 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
         super(props);
         this.state = {
             itemWrapStyle: {},
+            haloStyle: {},
             itemsStyle: [],
+            haloImg: "/images/halo.png",
             awards: [
                 {
                     img: "/images/2_of_hearts.png",
@@ -60,17 +62,18 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
 
     public componentDidMount() {
         this.carousel = new Carousel({
-            count: this.state.awards.length - 1,
+            count: this.state.awards.length,
             width: 222,
             height: 323,
             autoSlide: true,
-            slideDelay: 2,
-            translate: true,
+            slideDelay: 3,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
+                const haloStyle = itemsStyle.shift();
                 this.setState({
                     itemsStyle,
                     itemWrapStyle,
+                    haloStyle,
                 });
             },
         });
@@ -98,14 +101,26 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
     }
 
     public renderItemWrap() {
-        const { itemWrapStyle, itemsStyle } = this.state;
+        const { itemWrapStyle, itemsStyle, haloStyle } = this.state;
         const { top, left, width, height } = itemWrapStyle;
+        const ie678Filter = `progid:DXImageTransform.Microsoft.AlphaImageLoader(src=${
+            this.state.haloImg
+        }, sizingMethod='scale')`;
         return (
             <div className={styles["item-wrap"]} style={{ top, left, width }}>
                 <div style={{ paddingTop: height }}>
                     <div className={styles["item-wrap-content"]}>
                         {itemsStyle.length &&
                             itemsStyle.map((style: any, index: number) => this.renderItem(style, index))}
+                        {detectIE8() ? (
+                            <div className={styles["item-halo"]} style={haloStyle}>
+                                <span style={{ filter: ie678Filter }} />
+                            </div>
+                        ) : (
+                            <div className={styles["item-halo"]} style={haloStyle}>
+                                <img src={this.state.haloImg} />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -122,7 +137,6 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
     }
 
     private onMouseEnter = () => {
-        console.log('enter');
         this.carousel.animation.mouseEnter = true;
     };
 

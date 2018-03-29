@@ -20,4 +20,4 @@ export class Root extends React.PureComponent<any, any> {
     }
 }
 
-export const App = module.hot ? Root : hot(module)(Root);
+export const App = module.hot ? hot(module)(Root) : Root;
