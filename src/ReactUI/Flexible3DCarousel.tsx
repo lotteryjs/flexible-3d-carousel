@@ -9,7 +9,12 @@ import { Carousel, detectIE8 } from "../../src/carousel";
 import * as styles from "./Flexible3DCarousel.scss";
 import { ICarousel } from "../../src/carousel/props";
 
-export class Flexible3DCarousel extends React.PureComponent<any, any> {
+export interface IFlexible3DCarouselProps {
+    items: any[];
+    haloImg: string;
+}
+
+export class Flexible3DCarousel extends React.PureComponent<IFlexible3DCarouselProps, any> {
     public carousel: ICarousel;
 
     constructor(props: any) {
@@ -18,51 +23,14 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
             itemWrapStyle: {},
             haloStyle: {},
             itemsStyle: [],
-            haloImg: "/images/halo.png",
-            awards: [
-                {
-                    img: "/images/2_of_hearts.png",
-                    title: "2_of_hearts",
-                },
-                {
-                    img: "/images/ace_of_hearts.png",
-                    title: "ace_of_hearts",
-                },
-                {
-                    img: "/images/king_of_hearts.png",
-                    title: "king_of_hearts",
-                },
-                {
-                    img: "/images/queen_of_hearts.png",
-                    title: "queen_of_hearts",
-                },
-                {
-                    img: "/images/jack_of_hearts.png",
-                    title: "jack_of_hearts",
-                },
-                {
-                    img: "/images/10_of_hearts.png",
-                    title: "10_of_hearts",
-                },
-                {
-                    img: "/images/9_of_hearts.png",
-                    title: "9_of_hearts",
-                },
-                {
-                    img: "/images/8_of_hearts.png",
-                    title: "8_of_hearts",
-                },
-                {
-                    img: "/images/queen_of_hearts.png",
-                    title: "queen_of_hearts",
-                },
-            ],
+            haloImg: props.haloImg,
+            items: props.items,
         };
     }
 
     public componentDidMount() {
         this.carousel = new Carousel({
-            count: this.state.awards.length,
+            count: this.state.items.length,
             width: 222,
             height: 323,
             autoSlide: false,
@@ -97,7 +65,7 @@ export class Flexible3DCarousel extends React.PureComponent<any, any> {
 
     public renderItem(style: any, index: number) {
         const { top, left, width, height, zIndex } = style;
-        const { img, title } = this.state.awards[index];
+        const { img, title } = this.state.items[index];
         delete style.height;
         const cssStyle = top ? { top, left, width, zIndex } : style;
         const { haloStyle } = this.state;
