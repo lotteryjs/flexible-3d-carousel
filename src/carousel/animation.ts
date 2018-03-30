@@ -16,7 +16,7 @@ export class Animation implements IAnimation {
     public raf: number;
     public speed: number;
     public easing: number;
-    public easingMin: number = 0.001;
+    public easingMin: number = 0.0001;
     public slideStartTimestamp: number;
     public slideEndTimestamp: number;
     public mouseEnter: boolean = false;
@@ -56,7 +56,7 @@ export class Animation implements IAnimation {
         }
         // 顺时针方向
         // 因为javascript精度问题，这里稍稍修正下
-        const wc = 0.000000001 * Math.PI / 180;
+        const wc = 1 * Math.PI / 180;
         if (itemRotation >= 3 * Math.PI / 2 - wc) {
             this.direction = true;
             this.disRotation = 2 * Math.PI + center - itemRotation;
@@ -105,7 +105,8 @@ export class Animation implements IAnimation {
         if (this.slideStartTimestamp) {
             this.slideEndTimestamp = new Date().getTime();
             if ((this.slideEndTimestamp - this.slideStartTimestamp) / 1000 >= slideDelay) {
-                this.destRotation = (this.rotation + this.carousel.spacing) % (2 * Math.PI);
+                // this.destRotation = (this.rotation + this.carousel.spacing) % (2 * Math.PI);
+                this.destRotation = (this.destRotation + this.carousel.spacing) % (2 * Math.PI);
                 this.disRotation = this.carousel.spacing;
                 this.slideStartTimestamp = null;
             }
@@ -120,7 +121,8 @@ export class Animation implements IAnimation {
             this.rotation += this.speed;
         }
         if (this.disRotation < this.easingMin) {
-            this.rotation = this.destRotation;
+            // 直接给值会有抖动的bug
+            // this.rotation = this.destRotation;
             this.disRotation = 0;
             this.slideStartTimestamp = new Date().getTime();
         }
@@ -156,7 +158,7 @@ export class Animation implements IAnimation {
             }
         }
         if (this.disRotation < this.easingMin) {
-            this.rotation = this.destRotation;
+            // this.rotation = this.destRotation;
             this.disRotation = 0;
         }
     }

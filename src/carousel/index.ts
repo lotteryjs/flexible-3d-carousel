@@ -18,13 +18,13 @@ export class Carousel implements ICarousel {
         originX: 0.5,
         originY: 0.5,
         radiusX: 2,
-        radiusY: 0.25,
+        radiusY: 0.1,
         fps: 60,
-        percentW: 0.2,
+        percentW: 0.3,
         farScale: 0.5,
         autoSlide: true,
-        slideDelay: 3,
-        easing: 8,
+        slideDelay: 4,
+        easing: 18,
         translate: true,
         render: () => void 0,
     };
@@ -76,7 +76,7 @@ export class Carousel implements ICarousel {
         styles.push({
             opacity: haloOpacity,
             filter: `alpha(opacity=${haloOpacity * 100})`,
-            display: "none",
+            visibility: "hidden",
         });
         // 椭圆运动
         for (let i = 0; i < count; i++) {
@@ -91,7 +91,7 @@ export class Carousel implements ICarousel {
             const height = this.itemPercentH;
             const zIndex = Math.abs(Math.ceil(scale * 100));
             if (+rotation.toFixed(2) === 1.57) {
-                styles[1].display = "block";
+                styles[1].visibility = "visible";
                 styles[1].index = i;
             }
             if (this.transform && translate) {

@@ -12,6 +12,7 @@ import { ICarousel } from "../../src/carousel/props";
 export interface IFlexible3DCarouselProps {
     items: any[];
     haloImg: string;
+    config: any;
 }
 
 export class Flexible3DCarousel extends React.PureComponent<IFlexible3DCarouselProps, any> {
@@ -29,12 +30,28 @@ export class Flexible3DCarousel extends React.PureComponent<IFlexible3DCarouselP
     }
 
     public componentDidMount() {
+        const {
+            width,
+            height,
+            autoSlide,
+            slideDelay,
+            radiusX,
+            radiusY,
+            easing,
+            percentW,
+            farScale,
+        } = this.props.config;
         this.carousel = new Carousel({
             count: this.state.items.length,
-            width: 222,
-            height: 323,
-            autoSlide: false,
-            slideDelay: 3,
+            width,
+            height,
+            autoSlide,
+            slideDelay,
+            radiusX,
+            radiusY,
+            easing,
+            percentW,
+            farScale,
             render: (itemsStyle: any) => {
                 const itemWrapStyle = itemsStyle.shift();
                 const haloStyle = itemsStyle.shift();
