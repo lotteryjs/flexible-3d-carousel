@@ -17,8 +17,9 @@ const tsTsx = {
 const sass = {
   options: {
     data: `
-      @import "./assets/css/_variables";
-      @import "./assets/css/sprites";
+      @import "../assets/css/_variables";
+      @import "../assets/css/sprites";
+      @import "../assets/css/function";
     `,
     includePaths: [path.resolve("demo/src")]
   }

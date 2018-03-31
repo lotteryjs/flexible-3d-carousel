@@ -5,11 +5,13 @@
  */
 
 import * as React from "react";
+import * as classnames from "classnames";
 import { Carousel, detectIE8 } from "../../src/carousel";
 import * as styles from "./Flexible3DCarousel.scss";
 import { ICarousel } from "../../src/carousel/props";
 
 export interface IFlexible3DCarouselProps {
+    className?: string;
     items: any[];
     haloImg: string;
     config: any;
@@ -75,7 +77,7 @@ export class Flexible3DCarousel extends React.PureComponent<IFlexible3DCarouselP
             </div>
         ) : (
             <div className={styles["item-halo"]} style={haloStyle}>
-                <img src={this.state.haloImg} />
+                <img src={this.state.haloImg} className={styles.glass} />
             </div>
         );
     }
@@ -120,8 +122,10 @@ export class Flexible3DCarousel extends React.PureComponent<IFlexible3DCarouselP
 
     public render() {
         const { itemsStyle } = this.state;
+        const { className } = this.props;
+        const classNameSec = classnames(styles.canvas, className, "f-usn");
         return (
-            <div className={styles.canvas}>
+            <div className={classNameSec}>
                 <div className={styles["canvas-height"]}>{itemsStyle.length && this.renderItemWrap()}</div>
             </div>
         );

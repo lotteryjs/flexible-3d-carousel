@@ -11,70 +11,67 @@ import { Flexible3DCarousel } from "../../src/ReactUI/Flexible3DCarousel";
 declare var module: any;
 const items = [
     {
-        img: "/images/1.jpg",
-        title: "1",
-    },
-    {
-        img: "/images/2.jpg",
-        title: "2",
-    },
-    {
-        img: "/images/3.jpg",
-        title: "3",
-    },
-    {
-        img: "/images/4.jpg",
-        title: "4",
-    },
-    {
-        img: "/images/5.jpg",
+        img: "/images/6_of_hearts.png",
         title: "5",
     },
     {
-        img: "/images/2.jpg",
+        img: "/images/7_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/8_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/9_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/10_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/jack_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/queen_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/king_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/ace_of_hearts.png",
+        title: "2",
+    },
+    {
+        img: "/images/black_joker.png",
         title: "2",
     },
 ];
 
 const haloImg = "/images/halo.png";
 
-const config1 = {
-    width: 384,
-    height: 466,
-    autoSlide: true,
+const config = {
+    width: 222,
+    height: 323,
+    autoSlide: false,
     slideDelay: 4,
-    radiusX: 1.3,
-    radiusY: 0.28,
-    easing: 15,
+    radiusX: 1.5,
+    radiusY: 0.32,
+    easing: 12,
     percentW: 0.25,
-    farScale: 0.4,
-};
-
-const config2 = {
-    width: 384,
-    height: 466,
-    autoSlide: true,
-    slideDelay: 4,
-    radiusX: 0.7,
-    radiusY: 0.0000001,
-    easing: 20,
-    percentW: 0.3,
-    farScale: 0.3,
+    farScale: 0.5,
 };
 
 export class Root extends React.PureComponent<any, any> {
     public render() {
         return (
             <div>
-                <h2 style={{ textAlign: "center", fontSize: "1rem" }}>
-                    typescript+react编写<br />
-                    自适应多端(mobile，pad，pc)<br />
-                    兼容性极好(ie7+，android2.3+，ios 6+)<br />
-                    高性能的(raf，transform)<br />
-                    <span style={{ color: "#047ec5", fontSize: "1.5rem" }}>3D-Carousel</span>
-                </h2>
-                <Flexible3DCarousel items={items} haloImg={haloImg} config={config1} />
-                <Flexible3DCarousel items={items} haloImg={haloImg} config={config2} />
+                <h1 style={{ textAlign: "center" }}>Flexible-3D-Carousel</h1>
+                <Flexible3DCarousel items={items} haloImg={haloImg} config={config} />
             </div>
         );
     }

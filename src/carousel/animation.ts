@@ -105,8 +105,7 @@ export class Animation implements IAnimation {
         if (this.slideStartTimestamp) {
             this.slideEndTimestamp = new Date().getTime();
             if ((this.slideEndTimestamp - this.slideStartTimestamp) / 1000 >= slideDelay) {
-                // this.destRotation = (this.rotation + this.carousel.spacing) % (2 * Math.PI);
-                this.destRotation = (this.destRotation + this.carousel.spacing) % (2 * Math.PI);
+                this.destRotation = (this.rotation + this.carousel.spacing) % (2 * Math.PI);
                 this.disRotation = this.carousel.spacing;
                 this.slideStartTimestamp = null;
             }
@@ -121,8 +120,7 @@ export class Animation implements IAnimation {
             this.rotation += this.speed;
         }
         if (this.disRotation < this.easingMin) {
-            // 直接给值会有抖动的bug
-            // this.rotation = this.destRotation;
+            this.rotation = this.destRotation;
             this.disRotation = 0;
             this.slideStartTimestamp = new Date().getTime();
         }
@@ -158,7 +156,7 @@ export class Animation implements IAnimation {
             }
         }
         if (this.disRotation < this.easingMin) {
-            // this.rotation = this.destRotation;
+            this.rotation = this.destRotation;
             this.disRotation = 0;
         }
     }
