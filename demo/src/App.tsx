@@ -12,43 +12,43 @@ declare var module: any;
 const items = [
     {
         img: "/images/6_of_hearts.png",
-        title: "5",
+        title: "6",
     },
     {
         img: "/images/7_of_hearts.png",
-        title: "2",
+        title: "7",
     },
     {
         img: "/images/8_of_hearts.png",
-        title: "2",
+        title: "8",
     },
     {
         img: "/images/9_of_hearts.png",
-        title: "2",
+        title: "9",
     },
     {
         img: "/images/10_of_hearts.png",
-        title: "2",
+        title: "10",
     },
     {
         img: "/images/jack_of_hearts.png",
-        title: "2",
+        title: "jack",
     },
     {
         img: "/images/queen_of_hearts.png",
-        title: "2",
+        title: "queen",
     },
     {
         img: "/images/king_of_hearts.png",
-        title: "2",
+        title: "king",
     },
     {
         img: "/images/ace_of_hearts.png",
-        title: "2",
+        title: "ace",
     },
     {
         img: "/images/black_joker.png",
-        title: "2",
+        title: "joker",
     },
 ];
 
@@ -57,13 +57,13 @@ const haloImg = "/images/halo.png";
 const config = {
     width: 222,
     height: 323,
-    autoSlide: false,
+    autoSlide: true,
     slideDelay: 4,
-    radiusX: 1.5,
-    radiusY: 0.32,
+    radiusX: 1.6,
+    radiusY: 0.22,
     easing: 12,
-    percentW: 0.25,
-    farScale: 0.5,
+    percentW: 0.22,
+    farScale: 0.55,
 };
 
 export class Root extends React.PureComponent<any, any> {

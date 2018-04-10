@@ -12,8 +12,8 @@ export class Animation implements IAnimation {
     public destRotation: number;
     public disRotation: number;
     public direction: boolean;
-    public toFront: boolean;
-    public raf: number;
+    public toFront: boolean = false;
+    public toLottery: boolean = false;
     public speed: number;
     public easing: number;
     public easingMin: number = 0.0001;
@@ -34,8 +34,26 @@ export class Animation implements IAnimation {
         this.init();
     }
 
+    public lottery(index: number) {
+        if (this.toLottery || this.toFront) {
+            return;
+        }
+        const { rotation: center, spacing } = this.carousel;
+        this.toLottery = true;
+        const itemRotation = (this.rotation + index * spacing) % (2 * Math.PI);
+        const around = 2 * Math.PI * 4;
+        if (itemRotation <= center) {
+            this.disRotation = center - itemRotation + around;
+        }
+
+        if (itemRotation > center) {
+            this.disRotation = 2 * Math.PI + center - itemRotation + around;
+        }
+        this.destRotation = (this.rotation + this.disRotation) % (2 * Math.PI);
+    }
+
     public bringToFront(index: number) {
-        if (this.toFront) {
+        if (this.toFront || this.toLottery) {
             return;
         }
         const { rotation: center, spacing } = this.carousel;
@@ -76,22 +94,29 @@ export class Animation implements IAnimation {
 
     private init() {
         const drawFrame = () => {
-            if (this.toFront) {
+            if (this.toFront && !this.toLottery) {
                 this.bringToFrontAnimation();
             }
             const { autoSlide } = this.carousel.options;
             // 鼠标没有移入，并且设置了自动播放
-            // 没有执行让任意一个元素移到正前方
+            // 没有正在执行让任意一个元素移到正前方
+            // 没有正在执行抽奖动画
             // 执行slide动画
-            if (!this.mouseEnter && autoSlide && !this.toFront) {
+            if (!this.mouseEnter && autoSlide && !this.toFront && !this.toLottery) {
                 this.autoSlideAnimation();
             }
+
+            if (this.toLottery) {
+                this.lotteryAnimation();
+            }
+
+            // 呼吸光晕动画
             this.haloAnimation();
             // 统一边界值处理
             this.rotation %= 2 * Math.PI;
             // 渲染到DOM
             this.carousel.render(this.rotation, this.haloOpacity);
-            this.raf = raf(drawFrame);
+            raf(drawFrame);
         };
         drawFrame();
     }
@@ -168,5 +193,33 @@ export class Animation implements IAnimation {
         this.halo = (this.halo + 1) % 180;
         const opacity = Math.sin(this.halo * Math.PI / 180);
         this.haloOpacity = +opacity.toFixed(2);
+    }
+
+    /**
+     * 抽奖动画
+     */
+    private lotteryAnimation() {
+        if (this.disRotation === 0) {
+            this.toLottery = false;
+            this.slideStartTimestamp = new Date().getTime();
+            return;
+        }
+        this.speed = this.disRotation * this.easing;
+        if (this.speed > 0.2) {
+            this.speed = 0.2;
+        }
+        if (this.speed < 0.01) {
+            this.speed = 0.01;
+        }
+        this.disRotation -= this.speed;
+        if (this.disRotation > 0) {
+            this.halo = 0;
+            this.rotation += this.speed;
+        }
+        if (this.disRotation < this.easingMin) {
+            this.rotation = this.destRotation;
+            this.disRotation = 0;
+            this.slideStartTimestamp = new Date().getTime();
+        }
     }
 }

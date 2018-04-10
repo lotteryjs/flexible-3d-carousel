@@ -126,10 +126,22 @@ export class Flexible3DCarousel extends React.PureComponent<IFlexible3DCarouselP
         const classNameSec = classnames(styles.canvas, className, "f-usn");
         return (
             <div className={classNameSec}>
+                <h3 className={styles.header}>
+                    <a href="javascript:;" onClick={this.onLottery(7)}>
+                        I AM A KING
+                    </a>
+                    <a href="javascript:;" onClick={this.onLottery(6)}>
+                        I AM A QUEEN
+                    </a>
+                </h3>
                 <div className={styles["canvas-height"]}>{itemsStyle.length && this.renderItemWrap()}</div>
             </div>
         );
     }
+
+    private onLottery = (index: number) => () => {
+        this.carousel.animation.lottery(index);
+    };
 
     private onMouseEnter = () => {
         this.carousel.animation.mouseEnter = true;

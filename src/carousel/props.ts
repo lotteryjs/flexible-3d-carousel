@@ -173,11 +173,6 @@ export interface IAnimation {
     destRotation: number;
 
     /**
-     * 当前raf
-     */
-    raf: number;
-
-    /**
      * 滑动动画开始时间戳
      */
     slideStartTimestamp: number;
@@ -193,9 +188,14 @@ export interface IAnimation {
     mouseEnter: boolean;
 
     /**
-     * 是否执行让任意一个元素移到正前方
+     * 为真说明正在执行让任意一个元素移到正前方
      */
     toFront: boolean;
+
+    /**
+     * 为真说明正在执行抽奖动画
+     */
+    toLottery: boolean;
 
     /**
      * item移动到正前方的方向（顺时针为true）
@@ -206,4 +206,9 @@ export interface IAnimation {
      * 元素滑动到前面
      */
     bringToFront(index: number): void;
+
+    /**
+     * 抽奖让某个元素滑动到前面
+     */
+    lottery(index: number): void;
 }
